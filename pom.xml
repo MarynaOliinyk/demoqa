@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demoqa</groupId>
+    <artifactId>demoqa</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>DemoQA QA Automation</name>
+
+
+    <properties>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <skip-module>api-tests</skip-module>
+
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven.compiler.version>3.8.0</maven.compiler.version>
+        <janino.version>3.0.7</janino.version>
+        <allure.version>2.18.1</allure.version>
+        <testng.version>7.10.2</testng.version>
+        <aspectj.version>1.9.9.1</aspectj.version>
+
+        <browser>chrome</browser>
+        <sessionName>Debug Session</sessionName>
+
+        <skip-module>api-tests</skip-module>
+        <!-- Selenide properties -->
+        <selenide.openBrowserTimeoutMs>30000</selenide.openBrowserTimeoutMs>
+        <selenide.screenshots>true</selenide.screenshots>
+        <selenide.timeout>30000</selenide.timeout>
+        <selenide.pollingInterval>500</selenide.pollingInterval>
+        <selenide.collectionsPollingInterval>500</selenide.collectionsPollingInterval>
+        <selenide.pageLoadStrategy>normal</selenide.pageLoadStrategy>
+        <selenide.fastSetValue>true</selenide.fastSetValue>
+        <enableVideo>false</enableVideo>
+
+        <templates>core_template</templates>
+        <suite>suites/prerequisitesSuite.xml</suite>
+        <test></test>
+
+        <!--TestNG properties-->
+        <enableRetries>true</enableRetries>
+        <numberOfRetries>1</numberOfRetries>
+
+        <!--WebDriverFactory properties-->
+        <parallelTesting>false</parallelTesting>
+        <remoteUrl>http://localhost:4444/</remoteUrl>
+
+    </properties>
+    <modules>
+        <module>api-tests</module>
+        <module>gui-tests</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- For logs -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-testng</artifactId>
+                <version>${allure.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-selenide</artifactId>
+                <version>${allure.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.32</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <!--ui test properties-->
+                        <remoteUrl>${remoteUrl}</remoteUrl>
+                        <selenide.browser>${browser}</selenide.browser>
+                        <selenide.openBrowserTimeoutMs>${selenide.openBrowserTimeoutMs}}</selenide.openBrowserTimeoutMs>
+                        <selenide.screenshots>${selenide.screenshots}</selenide.screenshots>
+                        <selenide.timeout>${selenide.timeout}</selenide.timeout>
+                        <selenide.pollingInterval>${selenide.pollingInterval}</selenide.pollingInterval>
+                        <selenide.collectionsPollingInterval>${selenide.collectionsPollingInterval}
+                        </selenide.collectionsPollingInterval>
+                        <selenide.pageLoadStrategy>${selenide.pageLoadStrategy}</selenide.pageLoadStrategy>
+                        <selenide.fastSetValue>${selenide.fastSetValue}</selenide.fastSetValue>
+                        <selenide.driverManagerEnabled>false</selenide.driverManagerEnabled>
+                        <sessionName>${sessionName}</sessionName>
+                        <enableRetries>${enableRetries}</enableRetries>
+                        <numberOfRetries>${numberOfRetries}</numberOfRetries>
+                        <parallelTesting>${parallelTesting}</parallelTesting>
+                        <enableVideo>${enableVideo}</enableVideo>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
